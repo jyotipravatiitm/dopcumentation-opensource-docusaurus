@@ -42,5 +42,11 @@
   "engines": {
     "node": ">=18.0"
   },
-  "description": "Docusaurus example project"
+  "description": "Docusaurus example project",
+  "main": "babel.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "",
+  "license": "ISC"
 }
