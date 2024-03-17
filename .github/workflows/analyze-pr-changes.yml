@@ -36,7 +36,7 @@ jobs:
 
           # Parse the diff output to extract modified files and changes
           # (You'll need to write a custom script or use a tool for this)
-          analyze_changes.sh pr_changes.diff
+          ./analyze_changes.sh pr_changes.diff
 
       - name: Upload analysis results
         uses: actions/upload-artifact@v3
