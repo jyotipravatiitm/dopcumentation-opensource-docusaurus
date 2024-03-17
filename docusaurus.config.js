@@ -44,6 +44,7 @@ const config = {
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'My Site',
+ 
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
