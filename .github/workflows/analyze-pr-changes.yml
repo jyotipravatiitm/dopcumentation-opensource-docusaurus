@@ -1,0 +1,45 @@
+name: Generate Documentation
+
+on:
+  pull_request:
+    types: [closed]  # Trigger when a pull request is closed (merged)
+
+jobs:
+
+  check-label:
+    runs-on: ubuntu-latest
+    outputs:
+      should-generate-docs: ${{ steps.check-label.outputs.should-generate-docs }}
+    steps:
+      - id: check-label
+        run: |
+          PR_LABELS="${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          if [[ $PR_LABELS == *"generate-docs"* ]]; then
+            echo "should-generate-docs=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-generate-docs=false" >> $GITHUB_OUTPUT
+          fi
+
+  analyze-changes:
+    needs: check-label
+    if: ${{ needs.check-label.outputs.should-generate-docs == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Analyze changes
+        run: |
+          # Get the diff between the base branch and the merged commit
+          git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.after }} > pr_changes.diff
+
+          # Parse the diff output to extract modified files and changes
+          # (You'll need to write a custom script or use a tool for this)
+          analyze_changes.sh pr_changes.diff
+
+      - name: Upload analysis results
+        uses: actions/upload-artifact@v3
+        with:
+          name: analysis-results
+          path: analysis-output.txt
