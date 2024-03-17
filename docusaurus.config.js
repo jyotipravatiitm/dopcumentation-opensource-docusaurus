@@ -40,7 +40,7 @@ const config = {
     // other plugins...
   ],
   themeConfig: {
-    customCss: require.resolve('/Users/jyotip/Codebase/documentation/dopcumentation-opensource-docusaurus/src/css/custom.css'),
+    customCss: require.resolve('./src/css/custom.css'),
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'My Site',
